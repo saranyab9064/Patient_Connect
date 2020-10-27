@@ -1,3 +1,10 @@
+##### Requirements without Version Specifiers ######`
+mysqlclient
+mysql-connector-python
+pymysql
+
+
+###### Requirements with Version Specifiers ######`
 click==7.1.2
 Flask==1.1.2
 itsdangerous==1.1.0
