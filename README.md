@@ -21,5 +21,5 @@ flask run
 ```
 
 ## Kaggle Dataset
-[AV: Healthcare Analytics II](https://www.kaggle.com/nehaprabhavalkar/av-healthcare-analytics-ii)
+[AV: Healthcare Analytics II](https://www.kaggle.com/nehaprabhavalkar/av-healthcare-analytics-ii)\
 There are two files provided: the training and test data set. The datasets has information regarding the hospital region, department, patient severity, number of rooms, etc. Based on this info, we can use the training data set to create a model that will predict the LoS based on the test data set.
