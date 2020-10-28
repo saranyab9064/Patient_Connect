@@ -7,27 +7,90 @@
     <link rel="stylesheet" type ="text/css" href = "{{url_for('static',filename='css/style.css')}}">
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css" integrity="sha384-TX8t27EcRE3e/ihU7zmQxVncDAy5uIKz4rEkgIXeMed4M0jlfIDPvg6uqKI2xXr2" crossorigin="anonymous">
-
-    <title>Hello, world!</title>
+    <title>Dashboard</title>
   </head>
+
   <body>
+    <!-- *** NAVBAR *** -->
     <div class="bg-nav text-light d-flex flex-column flex-md-row align-items-center p-3 px-md-4 mb-3 bg-white border-bottom shadow-sm">
-        <h5 class="my-0 mr-md-auto font-weight-normal">Patient Connect</h5>
-        <nav class="my-2 my-md-0 mr-md-3">
-            <a class="p-2 text-light" href="#">Home</a>
-            <a class="p-2 text-light" href="#">Analysis</a>
-            <a class="p-2 text-light" href="#">Profile</a>
-            <a class="p-2 text-light" href="#">Settings</a>
-        </nav>
-        <a class="btn btn-outline-primary" href="#">Logout</a>
+      <h5 class="my-0 mr-md-auto font-weight-normal">Patient Connect</h5>
+      <nav class="my-2 my-md-0 mr-md-3">
+          <a class="p-2 text-light" href="home">Dashboard</a>
+          <a class="p-2 text-light" href="calendar">Calendar</a>
+          <a class="p-2 text-light" href="book_appointments">Book Appointment</a>
+          <a class="p-2 text-light" href="settings">Settings</a>
+      </nav>
+      <a class="btn btn-light" href="/">Logout</a>
     </div>
-    <div class="container">
-        
+
+    <!-- *** TITLE ***  -->
+    <div class="mx-auto my-5" style="width: 500px;">
+      <h1> Upcoming Appointments </h1>
     </div>
-<!-- Option 2: jQuery, Popper.js, and Bootstrap JS
-    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.min.js" integrity="sha384-w1Q4orYjBQndcko6MimVbzY0tgp4pWB4lZ7lr30WKz0vr/aWKhXdBNmNb5D92v7s" crossorigin="anonymous"></script>
--->
+
+    <!-- *** PATIENT CARDS -->
+    <div class="row px-4 mx-4 md-n5">
+      <div class="col px-2 md-3">
+        <div class="card mb-3 border-dark" style="max-width: 540px;">
+          <div class="row no-gutters">
+            <div class="col-md-4">
+              <img src="/static/patient1.PNG" class="card-img" alt="...">
+            </div>
+            <div class="col-md-8">
+              <div class="card-body">
+                <h5 class="card-title">Jessie Wilson, 27, They</h5>
+                <p class="card-text"> Friday, 10/28/20 @ 3:30PM </p>
+                <p class="card-text"> Symptoms: Coughing blood </p>
+                <p class="card-text"> Allergies: Nuts, eggs </p>
+                <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
+                <button type="button" class="btn btn-primary btn-sm">More details</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col px-2 md-3">
+        <div class="card mb-3 border-info" style="max-width: 540px;">
+          <div class="row no-gutters">
+            <div class="col-md-4">
+              <img src="/static/patient2.PNG" class="card-img" alt="...">
+            </div>
+            <div class="col-md-8">
+              <div class="card-body">
+                <h5 class="card-title">Iris Jones, 22, She</h5>
+                <p class="card-text"> Tuesday, 10/4/20 @ 5PM </p>
+                <p class="card-text"> Symptoms: Coughing blood </p>
+                <p class="card-text"> Allergies: Nuts, eggs </p>
+                <p class="card-text"><small class="text-muted">Last updated 50 mins ago</small></p>
+                <button type="button" class="btn btn-primary btn-sm">More details</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col px-2 md-3">
+        <div class="card mb-3 border-dark" style="max-width: 540px;">
+          <div class="row no-gutters">
+            <div class="col-md-4">
+              <img src="/static/patient3.PNG" class="card-img" alt="...">
+            </div>
+            <div class="col-md-8">
+              <div class="card-body">
+                <h5 class="card-title">Jean Joseph, 48, He</h5>
+                <p class="card-text"> Monday, 12/10/20 @ 1PM </p>
+                <p class="card-text"> Symptoms: Sneezing </p>
+                <p class="card-text"> Allergies: None </p>
+                <p class="card-text"><small class="text-muted">Last updated 1 hour ago</small></p>
+                <button type="button" class="btn btn-primary btn-sm">More details</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+
+      <!-- end of row -->
+    </div>
+    
   </body>
   </html>

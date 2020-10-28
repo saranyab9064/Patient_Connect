@@ -17,6 +17,18 @@ def about():
 def home():
     return render_template('home.html')
 
+@app.route('/calendar')
+def calendar():
+    return render_template('calendar.html')
+
+@app.route('/book_appointments')
+def book_appointments():
+    return render_template('book_appointments.html')
+
+@app.route('/settings')
+def settings():
+    return render_template('settings.html')
+
 @app.route('/login_validation', methods=['POST'])
 def login_validation():
     email=request.form.get('email')
