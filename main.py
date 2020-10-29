@@ -1,5 +1,5 @@
 from flask import Flask,render_template,request
-import mysql.connector
+# import mysql.connector
 
 app=Flask(__name__)
 
@@ -20,6 +20,10 @@ def home():
 @app.route('/calendar')
 def calendar():
     return render_template('calendar.html')
+
+@app.route('/estimate_stay')
+def estimate_stay():
+    return render_template('estimate_stay.html')
 
 @app.route('/book_appointments')
 def book_appointments():
