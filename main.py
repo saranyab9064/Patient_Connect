@@ -26,9 +26,27 @@ aws_secret_access_key=current_credentials.secret_key)
 def login():
     return render_template('login.html')
 
-@app.route('/register')
+@app.route('/register', methods=['GET','POST'])
 def about():
-    return render_template('register.html')
+    if request.method =='GET':
+        spot_id = uuid.uuid4() #Unique identifier for spot
+        first_name = request.form.get('first_name')
+        last_name = request.form.get('last_name')
+        email=request.form.get('email')
+        password=request.form.get('password')
+        table = dynamodb.Table('user_auth')
+        table.put_item(
+        Item={  'uuid': str(spot_id),
+                'email': email,
+                'first_name': first_name,
+                'last_name': last_name,
+                'password':password
+            }
+        )
+        msg = "Registration Complete. Please login to your account"
+        flash("Registration Complete. Please login to your account")
+        return render_template('register.html',msg=msg)
+    return render_template('login.html')
 
 @app.route('/home')
 def home():
