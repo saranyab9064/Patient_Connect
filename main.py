@@ -44,7 +44,7 @@ def about():
             }
         )
         msg = "Registration Complete. Please login to your account"
-        flash("Registration Complete. Please login to your account")
+        #flash("Registration Complete. Please login to your account")
         return render_template('register.html',msg=msg)
     return render_template('login.html')
 
