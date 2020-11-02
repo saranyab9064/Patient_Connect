@@ -1,9 +1,26 @@
-from flask import Flask,render_template,request
-# import mysql.connector
+from flask import Flask,render_template,request, jsonify, make_response, session,flash
+import boto3
+import uuid
+from boto3 import Session
+from boto3.dynamodb.conditions import Key,Attr
+import os
+
 
 app=Flask(__name__)
+app.secret_key=os.urandom(24)
 
-#conn=mysql.connector.connect(host=)
+
+session = Session()
+credentials = session.get_credentials()
+current_credentials = credentials.get_frozen_credentials()
+dynamodb = boto3.resource('dynamodb',
+aws_access_key_id=current_credentials.access_key,
+aws_secret_access_key=current_credentials.secret_key)
+
+
+
+
+
 
 @app.route('/')
 def login():
