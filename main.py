@@ -68,11 +68,21 @@ def book_appointments():
 def settings():
     return render_template('settings.html')
 
-@app.route('/login_validation', methods=['POST'])
+@app.route('/login_validation', methods=['GET','POST'])
 def login_validation():
-    email=request.form.get('email')
-    password=request.form.get('password')
-    return "The email is {} and the password is {}".format(email,password)
+    if request.method == 'GET':
+        email=request.form['email']
+        password=request.form['password']
+        table = dynamodb.Table('user_auth')
+        response = table.query(KeyConditionExpression=Key('email').eq(email))
+        items=response['Items']
+        name=items[0]['name']
+        if password == items[0]['password']:
+            session['user_id']=items[0][0]
+            return redirect('/home')
+    else:
+        msg = "You don't have a account. Please click signup"
+        return render_template('register.html',msg=msg)
 
 
 if __name__ == "__main__":
