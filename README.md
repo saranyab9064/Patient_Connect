@@ -9,7 +9,7 @@ pip install -r requirements.txt
 ## AWS Dynamodb
 ```
 Generate secret and access aws keys
-Configure the keys using cli command "aws configure"
+Configure the keys using cli command "aws configure" on local machine
 ```
 ## Run Application
 In your terminal, run the following:
