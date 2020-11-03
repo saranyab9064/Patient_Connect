@@ -6,7 +6,11 @@ PatientConnect is a healthcare management app that can be used to book hospital 
 ```
 pip install -r requirements.txt
 ```
-
+## AWS Dynamodb
+```
+Generate secret and access aws keys
+Configure the keys using cli command "aws configure"
+```
 ## Run Application
 In your terminal, run the following:
 ```
