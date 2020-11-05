@@ -27,26 +27,22 @@ def login():
     return render_template('login.html')
 
 @app.route('/register', methods=['GET','POST'])
-def about():
-    if request.method =='GET':
-        spot_id = uuid.uuid4() #Unique identifier for spot
-        first_name = request.form.get('first_name')
-        last_name = request.form.get('last_name')
-        email=request.form.get('email')
-        password=request.form.get('password')
-        table = dynamodb.Table('user_auth')
-        table.put_item(
-        Item={  'uuid': str(spot_id),
-                'email': email,
-                'first_name': first_name,
-                'last_name': last_name,
-                'password':password
-            }
-        )
-        msg = "Registration Complete. Please login to your account"
-        #flash("Registration Complete. Please login to your account")
-        return render_template('register.html',msg=msg)
-    return render_template('login.html')
+def signup():
+    spot_id = uuid.uuid4() #Unique identifier for spot
+    first_name = request.form.get('first_name')
+    last_name = request.form.get('last_name')
+    email=request.form.get('email')
+    password=request.form.get('password')
+    table = dynamodb.Table('user_auth')
+    table.put_item(
+    Item={  'uuid': str(spot_id),
+            'email': email,
+            'first_name': first_name,
+            'last_name': last_name,
+            'password':password
+        }
+    )
+    return render_template('home.html')
 
 @app.route('/home')
 def home():
@@ -70,19 +66,21 @@ def settings():
 
 @app.route('/login_validation', methods=['GET','POST'])
 def login_validation():
-    if request.method == 'GET':
+    if request.method == 'POST':
         email=request.form['email']
         password=request.form['password']
         table = dynamodb.Table('user_auth')
-        response = table.query(KeyConditionExpression=Key('email').eq(email))
+        response = table.scan(FilterExpression=Key('email').eq(email))
+        #print(response)
         items=response['Items']
-        name=items[0]['name']
-        if password == items[0]['password']:
-            session['user_id']=items[0][0]
-            return redirect('/home')
-    else:
-        msg = "You don't have a account. Please click signup"
-        return render_template('register.html',msg=msg)
+        #print("items",items)
+        if len(items)>0:
+            name=items[0]['email']       
+            return render_template('home.html')
+        else:
+            result = {}
+            result ="You don't have a account. Please click create a new account"
+            return render_template('login.html',msg=result)
 
 
 if __name__ == "__main__":
