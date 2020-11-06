@@ -11,4 +11,5 @@ s3transfer==0.3.3
 six==1.15.0
 urllib3==1.25.11
 Werkzeug==1.0.1
-
+requests==2.24.0
+numpy==1.19.4

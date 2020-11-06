@@ -1,20 +1,10 @@
+
 {% extends "base.html" %}
 
-{% block title %}Estimate Stay{% endblock %}
+{% block title %} Register Patient {% endblock %}
 
 {% block content %}
-<!-- *** TITLE ***  -->
-<h3 style="text-align: center">
-<b><u>Patient Admission Form</u></b>
-</h3>
-<hr />
-<form action='#' method='post'>
-<div
-  class="accordion"
-  id="accordionExample"
-  style="width: 100%; padding: 1px 300px; align-content: center"
->
-  <div class="card">
+<div class="card" method="post">
     <div class="card-header" id="headingOne">
       <h2 class="mb-0">
         <button
@@ -206,156 +196,18 @@
               rows="3"
             ></textarea>
           </div>
-        </form>
-      </div>
-    </div>
-    <div style="float: right; padding-right: 300px; padding-top: 50px">
-      <button
-        type="submit"
-        class="btn btn-dark bg-nav"
-        style="background-color: #ad5389; color: white; font-weight: bolder"
-      >
-        Save
-      </button>
-    </div>
-  </div>
-  <div class="card">
-    <div class="card-header" id="headingTwo">
-      <h2 class="mb-0">
-        <button
-          class="btn btn-link btn-block text-left bg-nav"
-          type="button"
-          data-toggle="collapse"
-          data-target="#collapseTwo"
-          aria-expanded="true"
-          aria-controls="collapseTwo"
-          style="
-            background-color: #ad5389;
-            color: white;
-            text-decoration: none;
-          "
-        >
-          Hospital Details
-        </button>
-      </h2>
-    </div>
-    <div
-      id="collapseTwo"
-      class="collapse"
-      aria-labelledby="headingTwo"
-      data-parent="#accordionExample"
-    >
-      <div class="card-body">
-        <form method="post" name="hospitalDetails">
-          <div class="form-group">
-            <div class="row">
-              <div class="col-md-6">
-                <label for="h_code"><b>Hospital Code</b></label>
-                <input
-                  type="text"
-                  class="form-control"
-                  name="h_code"
-                  placeholder="Enter a value between 1 to 32"
-                />
-              </div>
-              <div class="col-md-6">
-                <label for="ht_code"><b>Hospital Type Code</b></label>
-                <select class="form-control" name="ht_code">
-                  <option value="0">A</option>
-                  <option value="1">B</option>
-                  <option value="2">C</option>
-                  <option value="3">D</option>
-                  <option value="4">E</option>
-                  <option value="5">F</option>
-                  <option value="6">G</option>
-                </select>
-              </div>
-            </div>
-            <br />
-            <div class="row">
-              <div class="col-md-4">
-                <label for="hc_code"><b>Hospital City Code</b></label>
-                <select class="form-control" name="hc_code">
-                  <option value="1">1</option>
-                  <option value="2">2</option>
-                  <option value="3">3</option>
-                  <option value="4">4</option>
-                  <option value="5">5</option>
-                  <option value="6">6</option>
-                  <option value="7">7</option>
-                  <option value="9">9</option>
-                  <option value="10">10</option>
-                  <option value="11">11</option>
-                  <option value="13">13</option>
-                </select>
-              </div>
-              <div class="col-md-4" style="padding-top: 5px">
-                <label for="region_code"><b>Hospital Region Code</b></label>
-                <select class="form-control" name="region_code">
-                  <option value="0">X</option>
-                  <option value="1">Y</option>
-                  <option value="2">Z</option>
-                </select>
-              </div>
-              <div class="col-md-4">
-                <label for="extra_rooms"><b>Extra Rooms availability</b></label>
-                <input
-                  type="text"
-                  class="form-control"
-                  name="extra_rooms"
-                  placeholder="No. of extra rooms available"
-                />
-              </div>
-            </div>
-            <br />
-            <div class="row">
-              <div class="col-md-4">
-                <label for="ward_type"><b>Ward Type</b></label>
-                <select class="form-control" name="ward_type">
-                  <option value="0">P</option>
-                  <option value="1">Q</option>
-                  <option value="2">R</option>
-                  <option value="3">S</option>
-                  <option value="4">T</option>
-                  <option value="5">U</option>
-                </select>
-              </div>
-              <div class="col-md-4">
-                <label for="ward_facility"><b>Ward Facility Code</b></label>
-                <select class="form-control" name="ward_facility">
-                  <option value="0">A</option>
-                  <option value="1">B</option>
-                  <option value="2">C</option>
-                  <option value="3">D</option>
-                  <option value="4">E</option>
-                  <option value="5">F</option>
-                </select>
-              </div>
-              <div class="col-md-4">
-                <label for="bed_grade"><b>Bed Grade</b></label>
-                <select class="form-control" name="bed_grade">
-                  <option value="1">Level 1</option>
-                  <option value="2">Level 2</option>
-                  <option value="3">Level 3</option>
-                  <option value="4">Level 4</option>
-                </select>
-              </div>
-            </div>
+          <div class="mx-auto my-4" style="width:150px;">
+            <button
+              type="submit"
+              class="btn btn-dark bg-nav btn-block"
+              style="background-color: #ad5389; color: white; font-weight: bolder"
+            >
+              Save
+            </button>
+          </div>
         </form>
       </div>
     </div>
   </div>
 </div>
-<div style="float: right; padding-right: 300px; padding-top: 50px">
-  <button
-    type="submit"
-    class="btn btn-dark bg-nav"
-    style="background-color: #ad5389; color: white; font-weight: bolder"
-  >
-    Estimate Length of Stay
-  </button>
-</div>
-</form>
-
-
 {% endblock %}
