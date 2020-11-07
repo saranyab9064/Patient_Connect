@@ -8,217 +8,11 @@
 <b><u>Patient Admission Form</u></b>
 </h3>
 <hr />
-<form action='#' method='post'>
 <div
   class="accordion"
   id="accordionExample"
   style="width: 100%; padding: 1px 300px; align-content: center"
 >
-  <div class="card">
-    <div class="card-header" id="headingOne">
-      <h2 class="mb-0">
-        <button
-          class="btn btn-link btn-block text-left bg-nav collapsed"
-          type="button"
-          data-toggle="collapse"
-          data-target="#collapseOne"
-          aria-expanded="true"
-          aria-controls="collapseOne"
-          style="
-            background-color: #ad5389;
-            color: white;
-            text-decoration: none;
-          "
-        >
-          Patient Details
-        </button>
-      </h2>
-    </div>
-
-    <div
-      id="collapseOne"
-      class="collapse show"
-      aria-labelledby="headingOne"
-      data-parent="#accordionExample"
-    >
-      <div class="card-body">
-        <form method="post" name="patientDetails">
-          <div class="form-group">
-            <div class="row">
-              <div class="col-md-6">
-                <label for="first_name"><b>First Name</b></label>
-                <input
-                  type="text"
-                  class="form-control"
-                  name="first_name"
-                  placeholder="First Name"
-                />
-              </div>
-              <div class="col-md-6">
-                <label for="last_name"><b>Last Name</b></label>
-                <input
-                  type="text"
-                  class="form-control"
-                  name="last_name"
-                  placeholder="Last Name"
-                />
-              </div>
-            </div>
-            <br />
-            <label for="email"><b>Email address</b></label>
-            <input
-              type="email"
-              class="form-control"
-              name="email"
-              placeholder="name@example.com"
-            />
-            <br />
-            <div class="row">
-              <div class="col-md-4">
-                <label for="age"><b>Age</b></label>
-                <select class="form-control" name="age">
-                  <option value="0">0-10</option>
-                  <option value="1">11-20</option>
-                  <option value="2">21-30</option>
-                  <option value="3">31-40</option>
-                  <option value="4">41-50</option>
-                  <option value="5">51-60</option>
-                  <option value="6">61-70</option>
-                  <option value="7">71-80</option>
-                  <option value="8">81-90</option>
-                  <option value="9">91-100</option>
-                </select>
-              </div>
-              <div class="col-md-4" style="padding-top: 5px">
-                <label for="gender" name="gender"><b>Gender</b></label
-                ><br />
-                <div class="form-check form-check-inline">
-                  <input
-                    class="form-check-input"
-                    type="radio"
-                    name="male"
-                    id="inlineRadio1"
-                    value="Male"
-                  />
-                  <label class="form-check-label" for="inlineRadio1"
-                    >Male</label
-                  >
-                </div>
-                <div class="form-check form-check-inline">
-                  <input
-                    class="form-check-input"
-                    type="radio"
-                    name="female"
-                    id="inlineRadio2"
-                    value="Female"
-                  />
-                  <label class="form-check-label" for="inlineRadio2"
-                    >Female</label
-                  >
-                </div>
-                <div class="form-check form-check-inline">
-                  <input
-                    class="form-check-input"
-                    type="radio"
-                    name="other"
-                    id="inlineRadio3"
-                    value="Other"
-                  />
-                  <label class="form-check-label" for="inlineRadio3"
-                    >Other</label
-                  >
-                </div>
-              </div>
-              <div class="col-md-4">
-                <label for="blood_type"><b>Blood Type</b></label>
-                <input
-                  type="text"
-                  class="form-control"
-                  name="blood_type"
-                  placeholder="A+ A- B+ B- O+ O- AB+ AB-"
-                />
-              </div>
-            </div>
-            <br />
-            <div class="row">
-              <div class="col-md-4">
-                <label for="admission_type"><b>Admission Type</b></label>
-                <select class="form-control" name="admission_type">
-                  <option value="0">Emergency</option>
-                  <option value="1">Trauma</option>
-                  <option value="2">Urgent</option>
-                </select>
-              </div>
-              <div class="col-md-4">
-                <label for="illness_severity"
-                  ><b>Illness Severity</b></label
-                >
-                <select class="form-control" name="illness_severity">
-                  <option value="0">Extreme</option>
-                  <option value="1">Minor</option>
-                  <option value="2">Moderate</option>
-                </select>
-              </div>
-              <div class="col-md-4">
-                <label for="department"><b>Department</b></label>
-                <select class="form-control" name="department">
-                  <option value="0">Anesthesia</option>
-                  <option value="1">Gynecology</option>
-                  <option value="2">Radiotherapy</option>
-                  <option value="3">Surgery</option>
-                </select>
-              </div>
-            </div>
-            <br />
-            <div class="row">
-              <div class="col-md-4">
-                <label for="visitors"
-                  ><b>No. of Visitors with Patient</b></label
-                >
-                <input
-                  type="text"
-                  class="form-control"
-                  name="no_of_visitors"
-                  placeholder="No. of visitors"
-                />
-              </div>
-              <div class="col-md-4">
-                <label for="admission_deposit"
-                  ><b>Admission Deposit</b></label
-                >
-                <input
-                  type="text"
-                  class="form-control"
-                  name="admission_deposit"
-                  placeholder="Deposit amount in $"
-                />
-              </div>
-            </div>
-          </div>
-
-          <div class="form-group">
-            <label for="info"
-              >Additional Information</label
-            >
-            <textarea
-              class="form-control"
-              name="additional_info"
-              rows="3"
-            ></textarea>
-          </div>
-        </form>
-      </div>
-    </div>
-    <div style="float: right; padding-right: 300px; padding-top: 50px">
-      <button
-        type="submit"
-        class="btn btn-dark bg-nav"
-        style="background-color: #ad5389; color: white; font-weight: bolder"
-      >
-        Save
-      </button>
-    </div>
-  </div>
   <div class="card">
     <div class="card-header" id="headingTwo">
       <h2 class="mb-0">
@@ -241,7 +35,7 @@
     </div>
     <div
       id="collapseTwo"
-      class="collapse"
+      class="collapse show"
       aria-labelledby="headingTwo"
       data-parent="#accordionExample"
     >
@@ -341,21 +135,20 @@
                 </select>
               </div>
             </div>
+            <div class="mx-auto my-4" style="width:150px;">
+              <button
+                type="submit"
+                class="btn btn-dark bg-nav btn-block"
+                style="background-color: #ad5389; color: white; font-weight: bolder"
+              >
+                Save
+              </button>
+            </div>
         </form>
       </div>
     </div>
   </div>
 </div>
-<div style="float: right; padding-right: 300px; padding-top: 50px">
-  <button
-    type="submit"
-    class="btn btn-dark bg-nav"
-    style="background-color: #ad5389; color: white; font-weight: bolder"
-  >
-    Estimate Length of Stay
-  </button>
-</div>
-</form>
 
 
 {% endblock %}

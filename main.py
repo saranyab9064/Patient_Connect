@@ -55,7 +55,6 @@ def calendar():
 
 @app.route('/estimate_stay', methods=['GET', 'POST'])
 def estimate_stay():
-    
     if request.method == 'POST': 
         # patientDetails = request.form.get('patientDetails')
         # print("patient responses: ", patientDetails)
