@@ -55,14 +55,11 @@ def calendar():
 
 @app.route('/estimate_stay', methods=['GET', 'POST'])
 def estimate_stay():
-    if request.method == 'POST': 
-        # patientDetails = request.form.get('patientDetails')
-        # print("patient responses: ", patientDetails)
-        # hospitalDetails = request.form.get('hospitalDetails')
-        # print("hospital responses: ", hospitalDetails)
-        print("first name: ", request.form.get('first_name'))
-        print("h_code: ", request.form.get('h_code'))
-
+    hospitalDetails = "none"
+    if request.method == 'POST':
+        hospitalDetails = request.form
+        print("hospital details: ", request.form)
+        flash("Hospital details registered!")
     return render_template('estimate_stay.html')
 
 @app.route('/book_appointments')
@@ -75,9 +72,11 @@ def settings():
 
 @app.route('/register_patient', methods=['GET','POST'])
 def register_patient():
+    patientDetails = "none"
     if request.method == "POST": 
         patientDetails = request.form
         print("patient details: ", patientDetails)
+        flash("Patient details registered!")
     return render_template('register_patient.html')
 
 @app.route('/login_validation', methods=['GET','POST'])
