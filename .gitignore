@@ -1,6 +1,9 @@
 # virtual environment
-venv/
+venv2/
 
 # vsc
 .vscode/
 __pycache__/
+
+# machine learning pickle file (too large to push to Github)
+.final_prediction.pickle.icloud

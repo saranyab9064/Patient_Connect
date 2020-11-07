@@ -1,4 +1,4 @@
-from flask import Flask,render_template,request, jsonify, make_response, session,flash
+from flask import Flask,render_template,request, jsonify, make_response, session, flash
 import boto3
 import uuid
 from boto3 import Session
@@ -53,14 +53,14 @@ def home():
 def calendar():
     return render_template('calendar.html')
 
-@app.route('/estimate_stay', methods=['GET', 'POST'])
-def estimate_stay():
-    hospitalDetails = "none"
-    if request.method == 'POST':
-        hospitalDetails = request.form
-        print("hospital details: ", request.form)
-        flash("Hospital details registered!")
-    return render_template('estimate_stay.html')
+@app.route('/register_patient', methods=['GET','POST'])
+def register_patient():
+    patientDetails = "none"
+    if request.method == "POST": 
+        patientDetails = request.form
+        print("patient details: ", patientDetails)
+    return render_template('register_patient.html')
+
 
 @app.route('/book_appointments')
 def book_appointments():
@@ -69,15 +69,6 @@ def book_appointments():
 @app.route('/settings')
 def settings():
     return render_template('settings.html')
-
-@app.route('/register_patient', methods=['GET','POST'])
-def register_patient():
-    patientDetails = "none"
-    if request.method == "POST": 
-        patientDetails = request.form
-        print("patient details: ", patientDetails)
-        flash("Patient details registered!")
-    return render_template('register_patient.html')
 
 @app.route('/login_validation', methods=['GET','POST'])
 def login_validation():
@@ -95,17 +86,52 @@ def login_validation():
         msg = "You don't have a account. Please click signup"
         return render_template('register.html',msg=msg)
 
-# @app.route('/api/', methods=['POST'])
-# def makecalc():
-#     data = request.get_json()
-#     prediction = np.array2string(model.predict(data))
+@app.route('/estimate_stay', methods=['GET', 'POST'])
+def estimate_stay():
+    hospitalDetails = "none"
+    if request.method == 'POST':
+        hospitalDetails = request.form.to_dict()  # converts ImmutableMultiDict to JSON object
+        # print("hospital details: ", request.form)
+        # hospitalDetails = request.get_json()
+        # print("hospital details: ", hospitalDetails)
+        # length_of_stay = makecalc(hospitalDetails)
+        makecalc()
+        # print("LoS: ", length_of_stay)
+    return render_template('estimate_stay.html')
 
-#     return jsonify(prediction)
+"""
+15 Features in order of array indices
 
+caseid
+hospital_code
+hospital_type_code
+city_code_hospital
+hospital_region_code
+available_extra_rooms
+department
+ward_type
+ward_facility_code
+bed_grade
+patientID
+city_code_patient
+type_of_admission
+severity_of_illness
+no_of_visits
+age
+admission_deposit
+"""
+
+@app.route('/api/', methods=['POST'])
+def makecalc():
+    modelfile = './final_prediction.pickle'
+    model = p.load(open(modelfile, 'rb'))
+    randomData = [[12, 0, 1, 1, 20, 0, 0, 1, 1, 2, 2, 1, 0, 1, 1]]  # input must be a total of 15 features, expected format is an array of arrays  
+    prediction = np.array2string(model.predict(randomData))
+    # output = prediction[0]
+    print("prediction for random Data: ", prediction)
+    return jsonify(prediction)
 
 if __name__ == "__main__":
-    modelfile = 'models/final_prediction.pickle'
-    model = p.load(open(modelfile, 'rb'))
     app.run(debug=True)
    
 
