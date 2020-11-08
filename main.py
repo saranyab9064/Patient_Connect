@@ -1,4 +1,4 @@
-from flask import Flask,render_template,request, jsonify, make_response, session, flash
+from flask import Flask,render_template,request, jsonify, make_response, session, flash, redirect
 import boto3
 import uuid
 from boto3 import Session
@@ -7,7 +7,7 @@ import os
 import numpy as np
 import pickle as p 
 import json
-
+import random
 
 app=Flask(__name__)
 app.secret_key=os.urandom(24)
@@ -18,6 +18,26 @@ current_credentials = credentials.get_frozen_credentials()
 dynamodb = boto3.resource('dynamodb',
 aws_access_key_id=current_credentials.access_key,
 aws_secret_access_key=current_credentials.secret_key)
+
+# IMPORTANT: these strings will be replaced with the user's input on the form later, i put the column names here to show the order the 
+allFormDetails = [
+    "case_id", 
+    "hospital_code", 
+    "hospital_type_code",
+    "city_code_hospital",
+    "hospital_region_code", 
+    "available_extra_rooms", 
+    "department", 
+    "ward_type", 
+    "ward_facility_code",
+    "bed_grade",
+    "type_of_admission", 
+    "severity_of_illness", 
+    "no_of_visits", 
+    "age_range",
+    "admission_deposit"
+]
+modelInput = []  # must append allFormDetails array into another array to feed to model
 
 @app.route('/')
 def login():
@@ -57,10 +77,27 @@ def calendar():
 def register_patient():
     patientDetails = "none"
     if request.method == "POST": 
-        patientDetails = request.form
-        print("patient details: ", patientDetails)
-    return render_template('register_patient.html')
 
+        # retrieve data from form
+        patientDetails = request.form
+        age_range = patientDetails['age_range']
+        admission_type = patientDetails['admission_type']
+        illness_severity = patientDetails['illness_severity']
+        department = patientDetails['department']
+        no_of_visits = patientDetails['no_of_visitors']
+        admission_deposit = patientDetails['admission_deposit']
+        print("patient details: ", patientDetails)
+
+        # append values into array via its index
+        allFormDetails[6] = department
+        allFormDetails[10] = admission_type
+        allFormDetails[11] = illness_severity
+        allFormDetails[12] = no_of_visits
+        allFormDetails[13] = age_range
+        allFormDetails[14] = admission_deposit
+        print("patient - allFormDetails: ", allFormDetails)
+        return redirect('/estimate_stay')
+    return render_template('register_patient.html')
 
 @app.route('/book_appointments')
 def book_appointments():
@@ -90,45 +127,53 @@ def login_validation():
 def estimate_stay():
     hospitalDetails = "none"
     if request.method == 'POST':
-        hospitalDetails = request.form.to_dict()  # converts ImmutableMultiDict to JSON object
-        # print("hospital details: ", request.form)
-        # hospitalDetails = request.get_json()
-        # print("hospital details: ", hospitalDetails)
-        # length_of_stay = makecalc(hospitalDetails)
+        # hospitalDetails = request.form.to_dict()  # converts ImmutableMultiDict to JSON object
+        
+        # generate random caseID
+        caseID = random.randint(0, 20)
+
+        # retrieve data from form
+        hospitalDetails = request.form
+        h_code = hospitalDetails['h_code']
+        ht_code = hospitalDetails['ht_code']
+        hc_code = hospitalDetails['hc_code']
+        hr_code = hospitalDetails['hr_code']
+        room_availability = hospitalDetails['room_availability']
+        ward_type = hospitalDetails['ward_type']
+        ward_facility = hospitalDetails['ward_facility']
+        bed_grade = hospitalDetails['bed_grade']
+        print("hospital details: ", request.form)
+
+        allFormDetails[0] = str(caseID)
+        allFormDetails[1] = h_code
+        allFormDetails[2] = ht_code
+        allFormDetails[3] = hc_code
+        allFormDetails[4] = hr_code
+        allFormDetails[5] = room_availability
+        allFormDetails[7] = ward_type
+        allFormDetails[8] = ward_facility
+        allFormDetails[9] = bed_grade
+        print("all details: ", allFormDetails)
+
+        # calculate LoS
         makecalc()
-        # print("LoS: ", length_of_stay)
     return render_template('estimate_stay.html')
 
-"""
-15 Features in order of array indices
-
-caseid
-hospital_code
-hospital_type_code
-city_code_hospital
-hospital_region_code
-available_extra_rooms
-department
-ward_type
-ward_facility_code
-bed_grade
-patientID
-city_code_patient
-type_of_admission
-severity_of_illness
-no_of_visits
-age
-admission_deposit
-"""
-
+def strToFloat(array): 
+    for i in array: 
+        i = int(float(i))
+    print("float array: ", array)
+    return array
+    
 @app.route('/api/', methods=['POST'])
 def makecalc():
     modelfile = './final_prediction.pickle'
     model = p.load(open(modelfile, 'rb'))
-    randomData = [[12, 0, 1, 1, 20, 0, 0, 1, 1, 2, 2, 1, 0, 1, 1]]  # input must be a total of 15 features, expected format is an array of arrays  
-    prediction = np.array2string(model.predict(randomData))
-    # output = prediction[0]
-    print("prediction for random Data: ", prediction)
+    print("allDetails: ", allFormDetails)
+    modelInput.append(allFormDetails)
+    print("model input: ", modelInput)
+    prediction = np.array2string(model.predict(modelInput))
+    print("prediction for random data: ", prediction)
     return jsonify(prediction)
 
 if __name__ == "__main__":

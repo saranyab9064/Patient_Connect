@@ -75,7 +75,8 @@
             <div class="row">
               <div class="col-md-4">
                 <label for="age"><b>Age</b></label>
-                <select class="form-control" name="age">
+                <select class="form-control" name="age_range" required>
+                  <option value="">None</option>
                   <option value="0">0-10</option>
                   <option value="1">11-20</option>
                   <option value="2">21-30</option>
@@ -136,7 +137,8 @@
             <div class="row">
               <div class="col-md-4">
                 <label for="admission_type"><b>Admission Type</b></label>
-                <select class="form-control" name="admission_type">
+                <select class="form-control" name="admission_type" required>
+                  <option value="">None</option>
                   <option value="0">Emergency</option>
                   <option value="1">Trauma</option>
                   <option value="2">Urgent</option>
@@ -146,7 +148,8 @@
                 <label for="illness_severity"
                   ><b>Illness Severity</b></label
                 >
-                <select class="form-control" name="illness_severity">
+                <select class="form-control" name="illness_severity" required>
+                  <option value="">None</option>
                   <option value="0">Extreme</option>
                   <option value="1">Minor</option>
                   <option value="2">Moderate</option>
@@ -154,7 +157,8 @@
               </div>
               <div class="col-md-4">
                 <label for="department"><b>Department</b></label>
-                <select class="form-control" name="department">
+                <select class="form-control" name="department" required>
+                  <option value="">None</option>
                   <option value="0">Anesthesia</option>
                   <option value="1">Gynecology</option>
                   <option value="2">Radiotherapy</option>
@@ -173,6 +177,7 @@
                   class="form-control"
                   name="no_of_visitors"
                   placeholder="No. of visitors"
+                  required
                 />
               </div>
               <div class="col-md-4">
@@ -184,6 +189,7 @@
                   class="form-control"
                   name="admission_deposit"
                   placeholder="Deposit amount in $"
+                  required
                 />
               </div>
             </div>

@@ -28,3 +28,31 @@ flask run
 [AV: Healthcare Analytics II](https://www.kaggle.com/nehaprabhavalkar/av-healthcare-analytics-ii)\
 There are two files provided: the training and test data set. The datasets has information regarding the hospital region, department, patient severity, number of rooms, etc. Based on this info, we can use the training data set to create a model that will predict the LoS based on the test data set.
 
+## Bugs
+If you get the following error: 
+```
+We have compiled some common reasons and troubleshooting tips at:
+
+    https://numpy.org/devdocs/user/troubleshooting-importerror.html
+
+Please note and check the following:
+
+  * The Python version is: Python3.7 from "/Users/lindanguyen/Desktop/Patient_Connect/venv2/bin/python3"
+  * The NumPy version is: "1.19.4"
+
+and make sure that they are the versions you expect.
+Please carefully study the documentation linked above for further help.
+
+Original error was: No module named 'numpy.core._multiarray_umath'
+```
+
+Try reinstalling numpy. 
+```
+pip install --upgrade --force-reinstall numpy
+```
+
+## Error Handling
+```
+ValueError: could not convert string to float:
+```
+Make sure to fill out the required fields. 

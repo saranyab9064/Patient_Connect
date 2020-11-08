@@ -50,11 +50,12 @@
                   class="form-control"
                   name="h_code"
                   placeholder="Enter a value between 1 to 32"
+                  required
                 />
               </div>
               <div class="col-md-6">
                 <label for="ht_code"><b>Hospital Type Code</b></label>
-                <select class="form-control" name="ht_code">
+                <select class="form-control" name="ht_code" required>
                   <option value="0">A</option>
                   <option value="1">B</option>
                   <option value="2">C</option>
@@ -69,7 +70,7 @@
             <div class="row">
               <div class="col-md-4">
                 <label for="hc_code"><b>Hospital City Code</b></label>
-                <select class="form-control" name="hc_code">
+                <select class="form-control" name="hc_code" required>
                   <option value="1">1</option>
                   <option value="2">2</option>
                   <option value="3">3</option>
@@ -85,7 +86,7 @@
               </div>
               <div class="col-md-4" style="padding-top: 5px">
                 <label for="region_code"><b>Hospital Region Code</b></label>
-                <select class="form-control" name="region_code">
+                <select class="form-control" name="hr_code" required>
                   <option value="0">X</option>
                   <option value="1">Y</option>
                   <option value="2">Z</option>
@@ -96,8 +97,9 @@
                 <input
                   type="text"
                   class="form-control"
-                  name="extra_rooms"
+                  name="room_availability"
                   placeholder="No. of extra rooms available"
+                  required
                 />
               </div>
             </div>
@@ -105,7 +107,7 @@
             <div class="row">
               <div class="col-md-4">
                 <label for="ward_type"><b>Ward Type</b></label>
-                <select class="form-control" name="ward_type">
+                <select class="form-control" name="ward_type" required>
                   <option value="0">P</option>
                   <option value="1">Q</option>
                   <option value="2">R</option>
@@ -116,7 +118,7 @@
               </div>
               <div class="col-md-4">
                 <label for="ward_facility"><b>Ward Facility Code</b></label>
-                <select class="form-control" name="ward_facility">
+                <select class="form-control" name="ward_facility" required>
                   <option value="0">A</option>
                   <option value="1">B</option>
                   <option value="2">C</option>
@@ -127,7 +129,7 @@
               </div>
               <div class="col-md-4">
                 <label for="bed_grade"><b>Bed Grade</b></label>
-                <select class="form-control" name="bed_grade">
+                <select class="form-control" name="bed_grade" required>
                   <option value="1">Level 1</option>
                   <option value="2">Level 2</option>
                   <option value="3">Level 3</option>
