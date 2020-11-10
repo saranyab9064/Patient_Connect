@@ -81,6 +81,10 @@ def register_patient():
 
         # retrieve data from form
         patientDetails = request.form
+        spot_id = uuid.uuid4() #Unique identifier for spot
+        first_name = patientDetails['first_name']
+        last_name = patientDetails['last_name']
+        email = patientDetails['email']
         age_range = patientDetails['age_range']
         admission_type = patientDetails['admission_type']
         illness_severity = patientDetails['illness_severity']
@@ -97,6 +101,21 @@ def register_patient():
         allFormDetails[13] = age_range
         allFormDetails[14] = admission_deposit
         print("patient - allFormDetails: ", allFormDetails)
+
+        table = dynamodb.Table('user_profile')
+        table.put_item(
+        Item={  'uuid': str(spot_id),
+                'email': email,
+                'first_name': first_name,
+                'last_name': last_name,
+                'age':age_range,
+                'admission_type':admission_type,
+                'illness_severity':illness_severity,
+                'department':department,
+                'no_of_visits':no_of_visits,
+                'admission_deposit':admission_deposit
+            }
+        )
         return redirect('/estimate_stay')
     return render_template('register_patient.html')
 
