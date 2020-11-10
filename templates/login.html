@@ -24,19 +24,20 @@
                   <div class="col-md-4">
                       <div class = "card mt-135">
                           <div class="card-body">
-                            <div class="alert alert-danger" role="alert">
+                            <div >
                               {{ msg }}
                             </div>
 
-                              <form class="form" method="POST" action="/login_validation">
-                                  <label>Email</label><br>
-                                  <input type ="email" class ="form-control" name="email"><br>
-                                  <label>Password</label><br>
+                              <form class="form" method="POST" action="/login" >
+                                  <label><b>Email</b></label><br>
+                                  <input type ="email" class ="form-control" name="email" ><br>
+                                  <label><b>Password</b></label><br>
                                   <input type="password" class ="form-control"name="password"><br><br>
                                   <!-- <input type="submit" class="btn btn-primary btn-block btn-lg" value="Login"> -->
-                                  <input type="submit" class="btn btn-primary btn-block btn-lg" value="Login">
+                                  <input type="submit" class="btn btn-dark bg-nav"
+                                  style="background-color: #ad5389; color: white; font-weight: bolder; text-align: center"value="Login">
                               </form>
-                              <p class="mt-2"> Not a member? <a href ="register">Create Account</a></p>
+                            
                           </div>
                       </div>
 
