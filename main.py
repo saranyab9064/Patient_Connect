@@ -86,6 +86,7 @@ def register_patient():
         last_name = patientDetails['last_name']
         email = patientDetails['email']
         age_range = patientDetails['age_range']
+        gender = patientDetails['gender']
         admission_type = patientDetails['admission_type']
         illness_severity = patientDetails['illness_severity']
         department = patientDetails['department']
@@ -109,6 +110,7 @@ def register_patient():
                 'first_name': first_name,
                 'last_name': last_name,
                 'age':age_range,
+                'gender':gender,
                 'admission_type':admission_type,
                 'illness_severity':illness_severity,
                 'department':department,
