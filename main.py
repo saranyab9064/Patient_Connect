@@ -43,14 +43,15 @@ modelInput = []  # must append allFormDetails array into another array to feed t
 def login():
     return render_template('register.html')
 
-@app.route('/register', methods=['POST'])
+@app.route('/register', methods=['GET','POST'])
 def register():
     if request.method == 'POST':
+        userDetails = request.form
         spot_id = uuid.uuid4() #Unique identifier for spot
-        first_name = request.form.get('first_name')
-        last_name = request.form.get('last_name')
-        email=request.form.get('email')
-        password=request.form.get('password')
+        first_name = userDetails['first_name']
+        last_name = userDetails['last_name']
+        email=userDetails['email']
+        password=userDetails['password']
         print(first_name,last_name,email)
         table = dynamodb.Table('user_auth')
         table.put_item(
@@ -104,6 +105,7 @@ def register_patient():
         print("patient - allFormDetails: ", allFormDetails)
 
         table = dynamodb.Table('user_profile')
+        print("Details",first_name,last_name,email,age_range,admission_deposit,illness_severity,department,no_of_visits)
         table.put_item(
         Item={  'uuid': str(spot_id),
                 'email': email,
@@ -168,7 +170,7 @@ def estimate_stay():
         ward_type = hospitalDetails['ward_type']
         ward_facility = hospitalDetails['ward_facility']
         bed_grade = hospitalDetails['bed_grade']
-        print("hospital details: ", request.form)
+        #print("hospital details: ", request.form)
 
         allFormDetails[0] = str(caseID)
         allFormDetails[1] = h_code
@@ -179,8 +181,24 @@ def estimate_stay():
         allFormDetails[7] = ward_type
         allFormDetails[8] = ward_facility
         allFormDetails[9] = bed_grade
-        print("all details: ", allFormDetails)
+        print("------------All details-----------------")
+        print(allFormDetails)
+        spot_id = uuid.uuid4() #Unique identifier for spot
 
+        #print(h_code,ht_code)
+        table = dynamodb.Table('hosp_details')
+        table.put_item(
+        Item={  'uuid': str(spot_id),
+                'h_code': h_code,
+                'ht_code': ht_code,
+                'hc_code': hc_code,
+                'hr_code':ht_code,
+                'room_availability':room_availability,
+                'ward_type':ward_type,
+                'ward_facility':ward_facility,
+                'bed_grade':bed_grade
+            }
+        )
         # calculate LoS
         makecalc()
     return render_template('estimate_stay.html')
