@@ -11,6 +11,7 @@ pip install -r requirements.txt
 Generate secret and access aws keys
 Configure the keys using cli command "aws configure" on local machine
 Created three tables
+--------------------
 1. user_auth [ Stores user information(doctor's info) and validates it ]
 2. user_profile [ Stores patient information ]
 3. hosp_details [ Stores hospital details ] 
