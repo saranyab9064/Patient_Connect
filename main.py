@@ -71,9 +71,9 @@ def register():
 def home():
     return render_template('home.html')
 
-@app.route('/calendar')
-def calendar():
-    return render_template('calendar.html')
+@app.route('/fullcalendar')
+def fullcalendar(): 
+    return render_template('fullcalendar.html')
 
 @app.route('/register_patient', methods=['GET','POST'])
 def register_patient():
@@ -219,6 +219,9 @@ def makecalc():
     prediction = np.array2string(model.predict(modelInput))
     print("prediction for random data: ", prediction)
     return jsonify(prediction)
+
+
+
 
 if __name__ == "__main__":
     app.run(debug=True)
