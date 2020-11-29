@@ -1,6 +1,6 @@
 # Patient_Connect HealthCare Application
 
-**Course:** CMPE 280 Web UI\
+**Course:** CMPE 280 Web UI
 
 PatientConnect is a healthcare management app that can be used to book hospital bedrooms for patients that need to be admitted. Our app will deploy a model that will predict a patient’s length of stay (LoS) based on their age and condition severity. By applying this machine learning model, hospital staff can better allocate resources and optimize procedures.
 
