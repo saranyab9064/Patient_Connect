@@ -3,6 +3,7 @@ import boto3
 import uuid
 from boto3 import Session
 from boto3.dynamodb.conditions import Key,Attr
+from botocore.exceptions import ClientError
 import os
 import numpy as np
 import pickle as p 
@@ -41,17 +42,19 @@ modelInput = []  # must append allFormDetails array into another array to feed t
 
 @app.route('/')
 def login():
-    return render_template('register.html')
+    return redirect('/register')
 
 @app.route('/register', methods=['GET','POST'])
 def register():
     if request.method == 'POST':
+        print("Register Login")
         userDetails = request.form
-        spot_id = uuid.uuid4() #Unique identifier for spot
-        first_name = userDetails['first_name']
-        last_name = userDetails['last_name']
-        email=userDetails['email']
-        password=userDetails['password']
+        #Unique identifier for spot
+        spot_id = uuid.uuid4() 
+        first_name = userDetails['f_name']
+        last_name = userDetails['l_name']
+        email = userDetails['email']
+        password = userDetails['password']
         print(first_name,last_name,email)
         table = dynamodb.Table('user_auth')
         table.put_item(
@@ -62,13 +65,15 @@ def register():
                 'password':password
             }
         )
-        msg = "Registration Complete. Please Login to your account !"
-        return render_template('register.html',msg=msg)
-    return render_template('register.html',msg="Registration Complete. Please Login to your account !")
+        msg = "Registration Complete. Please Click Login here!"
+        return render_template('register.html',msg=msg)     
+    return render_template('register.html',msg="Please Register if you don't have an account otherwise login !")
     
 
-@app.route('/home')
+@app.route('/home', methods=['GET'])
 def home():
+    dynamo_client = boto3.client('dynamodb')
+    print(dynamo_client.scan(TableName='user_profile'))
     return render_template('home.html')
 
 @app.route('/fullcalendar')
