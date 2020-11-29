@@ -98,7 +98,8 @@ def register_patient():
         department = patientDetails['department']
         no_of_visits = patientDetails['no_of_visitors']
         admission_deposit = patientDetails['admission_deposit']
-        print("patient details: ", patientDetails)
+        additional_info = patientDetails['additional_info']
+
 
         # append values into array via its index
         allFormDetails[6] = department
@@ -107,9 +108,10 @@ def register_patient():
         allFormDetails[12] = no_of_visits
         allFormDetails[13] = age_range
         allFormDetails[14] = admission_deposit
-        print("patient - allFormDetails: ", allFormDetails)
+        print("------------All Patient details-----------------")
+        print(allFormDetails)
 
-        table = dynamodb.Table('user_profile')
+        table = dynamodb.Table('patient_details')
         print("Details",first_name,last_name,email,age_range,admission_deposit,illness_severity,department,no_of_visits)
         table.put_item(
         Item={  'uuid': str(spot_id),
@@ -122,7 +124,8 @@ def register_patient():
                 'illness_severity':illness_severity,
                 'department':department,
                 'no_of_visits':no_of_visits,
-                'admission_deposit':admission_deposit
+                'admission_deposit':admission_deposit,
+                'additional_info':additional_info
             }
         )
         return redirect('/estimate_stay')
