@@ -5,7 +5,7 @@
 {% block content %}
 <!-- *** TITLE ***  -->
 <h3 style="text-align: center">
-<b><u>Patient Admission Form</u></b>
+<b><u>Estimate Length of Stay Form</u></b>
 </h3>
 <hr />
 <div
@@ -142,10 +142,23 @@
                 type="submit"
                 class="btn btn-dark bg-nav btn-block"
                 style="background-color: #ad5389; color: white; font-weight: bolder"
+                id="btn"
               >
-                Save
+                Estimate LoS
               </button>
             </div>
+            <!-- <script type="text/javascript">
+              $(document).ready(function() {
+                $("#btn").click(function() {
+                  $('#success-alert').removeClass('hidden');
+                });
+                    $("button.close").click(function() {
+                  $('#success-alert').addClass('hidden');
+                });
+          
+              });
+            </script> -->
+          
         </form>
       </div>
     </div>

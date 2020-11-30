@@ -51,7 +51,7 @@
 
 	/* initialize the calendar
 	-----------------------------------------------------------------*/
-
+	var events = []
 	var calendar =  $('#calendar').fullCalendar({
 	  header: {
 		left: 'title',
@@ -78,14 +78,56 @@
 	  allDaySlot: false,
 	  selectHelper: true,
 	  select: function(start, end, allDay) {
-		var title = prompt('Event Title:');
+		var appointment = {
+
+		}
+		var title = prompt('Appointment Title: ');
+		console.log("end: ", end)
+		console.log("year: ", y)
+		var date = prompt('End (m/d/y): ');
+		date = date.split('/').map(Number);
+		console.log("date: ", date);
+		endDay =  new Date(date[2], date[0], date[1]);
+		
+		var allDay = prompt('Is this all day?');
+		if (allDay.toLowerCase() == "yes") 
+		{
+			allDay = true; 
+			console.log("allDay is true")
+		}
+		else
+		{
+			allDay = false; 
+			console.log("allDay is false")
+		}
+
+		// var end = prompt('End (m/d/y): ');
+		var admissionType = prompt("Is this an emergency, trauma, urgent care or none?").toLowerCase(); 
+		var eventColor = ""; 
+		switch (admissionType) {
+			case "emergency": 
+				eventColor = "important"
+				break; 
+			case "trauma":
+				eventColor = "chill"
+				break; 
+			case "urgent": 
+				eventColor = "info"
+				break; 
+			default: 
+				eventColor = "default"; 
+				break; 
+		}
+
 		if (title) {
+			// **** THIS IS WHERE THE EVENT IS CREATED ON CALENDAR ****
 		  calendar.fullCalendar('renderEvent',
 			{
 			  title: title,
 			  start: start,
-			  end: end,
-			  allDay: allDay
+			  end: endDay,
+			  allDay: true,
+		  	  className: eventColor
 			},
 			true // make the event "stick"
 		  );
@@ -116,52 +158,59 @@
 		}
 
 	  },
-
 	  events: [
 		{
-		  title: 'All Day Event',
+		  title: 'High fever - Priyanka A.',
 		  start: new Date(y, m, 1)
 		},
 		{
 		  id: 999,
-		  title: 'Repeating Event',
+		  title: 'Cancer care - John Meyer',
 		  start: new Date(y, m, d-3, 16, 0),
 		  allDay: false,
 		  className: 'info'
 		},
 		{
-		  id: 999,
-		  title: 'Repeating Event',
-		  start: new Date(y, m, d+4, 16, 0),
-		  allDay: false,
+		  id: 1,
+		  title: 'Chemo Treatment - Shun Nakigawa',
+		  start: new Date(y, m, d),
+		  end: new Date(y, 11, 4),
+		  allDay: true,
 		  className: 'info'
 		},
 		{
-		  title: 'Meeting',
-		  start: new Date(y, m, d, 10, 30),
+		  title: 'Fractured Jaw - Lisa Mei',
+		  start: new Date(y, 11, d, 10, 30),
 		  allDay: false,
 		  className: 'important'
 		},
 		{
-		  title: 'Lunch',
+		  title: 'Broken left leg - Michael Tom',
 		  start: new Date(y, m, d, 12, 0),
 		  end: new Date(y, m, d, 14, 0),
 		  allDay: false,
-		  className: 'important'
+		  className: 'default'
 		},
 		{
-		  title: 'Birthday Party',
+		  title: 'Urgent checkup - Amanda Lee',
 		  start: new Date(y, m, d+1, 19, 0),
 		  end: new Date(y, m, d+1, 22, 30),
 		  allDay: false,
+		  className: 'chill'
 		},
 		{
-		  title: 'Click for Google',
+		  title: 'Severe thigh burn - Sabrina Brooks',
 		  start: new Date(y, m, 28),
 		  end: new Date(y, m, 29),
-		  url: 'http://google.com/',
 		  className: 'success'
-		}
+		}, 
+		{
+		  title: 'Daily migraines - Daniel Beyer ',
+		  start: new Date(y, m, 19),
+		  end: new Date(y, m, 20),
+		  allDay: true, 
+		  className: 'info'
+		}, 
 	  ],
 	});
 
@@ -232,9 +281,26 @@
 
 <body>
 	<div id='wrap'>
-
-	<div id='calendar'></div>
-
+		<div id='calendar'></div>
+		{% if displayLos %}
+			<div class="alert alert-info" role="alert" style="width: 900px; text-align: center; margin: 40px auto">
+				The esimated LoS is <b>{{ los }}</b> days! 
+			</div>
+		{% endif %}
+		<!-- <form>
+			<h2> Enter Appointment Details </h2>
+			<br/>
+				<div class="form-row">
+					<div class="form-group col-md-6">
+					<label for="inputEmail4">Appointment Title</label>
+					<input type="text" class="form-control" id="apptTitle" placeholder="Title">
+					</div>
+					<div class="form-group col-md-6">
+					<label for="inputPassword4">Month</label>
+					<input type="text" class="form-control" id="month" placeholder="Month">
+					</div>
+				</div>
+		</form> -->
 	<div style='clear:both'></div>
 	</div>
 </body>

@@ -73,7 +73,7 @@ def register():
 @app.route('/home', methods=['GET'])
 def home():
     dynamo_client = boto3.client('dynamodb')
-    print(dynamo_client.scan(TableName='user_profile'))
+    print(dynamo_client.scan(TableName='patient_details'))
     return render_template('home.html')
 
 @app.route('/fullcalendar')
@@ -208,7 +208,8 @@ def estimate_stay():
             }
         )
         # calculate LoS
-        makecalc()
+        los = makecalc()
+        return render_template('fullcalendar.html', los = los[1], displayLos = True);
     return render_template('estimate_stay.html')
 
 def strToFloat(array): 
@@ -222,14 +223,12 @@ def makecalc():
     modelfile = './final_prediction.pickle'
     model = p.load(open(modelfile, 'rb'))
     print("allDetails: ", allFormDetails)
+    modelInput = []
     modelInput.append(allFormDetails)
     print("model input: ", modelInput)
     prediction = np.array2string(model.predict(modelInput))
     print("prediction for random data: ", prediction)
-    return jsonify(prediction)
-
-
-
+    return prediction
 
 if __name__ == "__main__":
     app.run(debug=True)
