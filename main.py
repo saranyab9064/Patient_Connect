@@ -73,8 +73,32 @@ def register():
 @app.route('/home', methods=['GET'])
 def home():
     dynamo_client = boto3.client('dynamodb')
-    print(dynamo_client.scan(TableName='patient_details'))
-    return render_template('home.html')
+    temp = dynamo_client.scan(TableName='patient_details')
+    res = temp['Items']
+    out = []
+    sym = []
+    notes = []
+    e_address = []
+    #print(res,len(res))
+    #print(res[0]['email']['S'])
+    for i in range(0,3):
+        f_name= res[i]['first_name']['S']
+        l_name= res[i]['last_name']['S']
+        email_add= res[i]['email']['S']
+        gender = res[i]['gender']['S']
+        severity_level= res[i]['illness_severity']['S']
+        add_notes = res[i]['additional_info']['S']
+        #print(f_name)
+        temp[i] = f_name +" "+ l_name+ ", "+ gender 
+        #notes[i]= add_notes
+        #e_address.append(email_add)
+        out.append(temp[i])
+        sym.append(add_notes)
+    print(sym)
+    print(out)
+        
+    return render_template('home.html',value0=out[0],value1=out[1],value2=out[2],symptoms0=sym[0],symptoms1=sym[1],symptoms2=sym[2])
+    
 
 @app.route('/fullcalendar')
 def fullcalendar(): 
