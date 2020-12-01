@@ -9,6 +9,7 @@ import numpy as np
 import pickle as p 
 import json
 import random
+import requests
 
 app=Flask(__name__)
 app.secret_key=os.urandom(24)
@@ -19,6 +20,9 @@ current_credentials = credentials.get_frozen_credentials()
 dynamodb = boto3.resource('dynamodb',
 aws_access_key_id=current_credentials.access_key,
 aws_secret_access_key=current_credentials.secret_key)
+
+patient_uuid = "default"
+user_uuid = "default"
 
 # IMPORTANT: these strings will be replaced with the user's input on the form later, i put the column names here to show the order the 
 allFormDetails = [
@@ -51,6 +55,7 @@ def register():
         userDetails = request.form
         #Unique identifier for spot
         spot_id = uuid.uuid4() 
+        user_uuid = spot_id # use to store in appt db
         first_name = userDetails['f_name']
         last_name = userDetails['l_name']
         email = userDetails['email']
@@ -76,8 +81,36 @@ def home():
     print(dynamo_client.scan(TableName='patient_details'))
     return render_template('home.html')
 
-@app.route('/fullcalendar')
-def fullcalendar(): 
+@app.route('/fullcalendar', methods=['GET', 'POST'])
+def fullcalendar():
+    if request.method == 'POST':
+        apptDetails = request.form.to_dict()
+        print("json data ", apptDetails)
+        apptTitle = apptDetails['title']
+        patientName = apptDetails['patient_name']
+        startDay = apptDetails['start']
+        endDay = apptDetails['end']
+        className = apptDetails['className']
+        spot_id = uuid.uuid4() # Unique identifier for spot
+        
+        # scan patient details
+        patient_details = dynamodb.Table('patient_details')
+        row = patient_details.scan(FilterExpression=Key('first_name').eq(patientName))
+        patient_uuid = row['Items'][0]['uuid']
+        
+        # insert appointment data into table
+        appointment_table = dynamodb.Table('appointment_times')
+        print("Details: ", spot_id, apptTitle, startDay, endDay, className, patient_uuid)
+        appointment_table.put_item(
+        Item={  'uuid': str(spot_id),
+                'apptTitle': apptTitle,
+                'startDay': startDay,
+                'endDay': endDay,
+                'className': className,
+                'patientID': patient_uuid
+            }
+        )
+
     return render_template('fullcalendar.html')
 
 @app.route('/register_patient', methods=['GET','POST'])
@@ -88,6 +121,7 @@ def register_patient():
         # retrieve data from form
         patientDetails = request.form
         spot_id = uuid.uuid4() #Unique identifier for spot
+        patient_uuid = spot_id # use to store in appt db
         first_name = patientDetails['first_name']
         last_name = patientDetails['last_name']
         email = patientDetails['email']
@@ -99,7 +133,6 @@ def register_patient():
         no_of_visits = patientDetails['no_of_visitors']
         admission_deposit = patientDetails['admission_deposit']
         additional_info = patientDetails['additional_info']
-
 
         # append values into array via its index
         allFormDetails[6] = department
