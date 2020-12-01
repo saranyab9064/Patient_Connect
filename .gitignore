@@ -7,3 +7,6 @@ __pycache__/
 
 # machine learning pickle file (too large to push to Github)
 final_prediction.pickle
+
+# selenium chrome executable
+chromedriver

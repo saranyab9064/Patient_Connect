@@ -35,6 +35,10 @@ flask run
 [AV: Healthcare Analytics II](https://www.kaggle.com/nehaprabhavalkar/av-healthcare-analytics-ii)\
 There are two files provided: the training and test data set. The datasets has information regarding the hospital region, department, patient severity, number of rooms, etc. Based on this info, we can use the training data set to create a model that will predict the LoS based on the test data set.
 
+## Selenium 
+You need to download [chrome driver](https://sites.google.com/a/chromium.org/chromedriver/downloads) in order to run the automation scripts. Once downloaded, move the executable to the project's root directory. 
+
+
 ## Bugs
 If you get the following error: 
 ```
