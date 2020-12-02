@@ -38,6 +38,15 @@ There are two files provided: the training and test data set. The datasets has i
 ## Selenium 
 You need to download [chrome driver](https://sites.google.com/a/chromium.org/chromedriver/downloads) in order to run the automation scripts. Once downloaded, move the executable to the project's root directory. 
 
+We used Selenium to automate the steps on the webpage and performed unit test to make sure each step was successful. 
+
+## Unit Tests
+Python interpreter will automatically detect the unit cases as long as files' names start with "test_xxx.py". Most of the unit tests will check for a status code 200 after an action has been performed on the webpage. 
+
+```
+cd test
+python3 -m unittest
+```
 
 ## Bugs
 If you get the following error: 

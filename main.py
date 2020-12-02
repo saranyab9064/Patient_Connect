@@ -71,7 +71,7 @@ def register():
             }
         )
         msg = "Registration Complete. Please Click Login here!"
-        return render_template('register.html',msg=msg)     
+        return render_template('login.html',msg=msg)     
     return render_template('register.html',msg="Please Register if you don't have an account otherwise login !")
     
 
