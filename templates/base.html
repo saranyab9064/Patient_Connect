@@ -35,17 +35,17 @@ class="bg-nav text-light d-flex flex-column flex-md-row align-items-center p-3 p
 <ul class="nav justify-content-end mx-3">
     <a class="p-2 text-light" href="home">Dashboard</a>
     <a class="p-2 text-light" href="fullcalendar">Calendar</a>
-          <a class="p-2 text-light dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          <a class="p-2 text-light dropdown-toggle" href="#" name="patient_admission_nav" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
             Patient Admission
           </a>
           <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-            <a class="dropdown-item" href="register_patient">Estimate LoS</a>
+            <a class="dropdown-item" href="register_patient" name="estimate_los_drop" >Estimate LoS</a>
             <!-- <a class="dropdown-item" href="estimate_stay">Estimate Stay</a>
             <a class="dropdown-item" href="book_appointments">Book Appointment</a> -->
           </div>
     <!-- <a class="p-2 text-light" href="settings">Settings</a> -->
 </ul>
-<a class="btn btn-light" href="/">Logout</a>
+<a class="btn btn-light" href="/" name="logout_button">Logout</a>
 </div>
 {% endblock %}
 

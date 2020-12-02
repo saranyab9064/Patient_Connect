@@ -6,6 +6,7 @@ import requests
 driver = webdriver.Chrome("/Users/lindanguyen/Desktop/Patient_Connect/chromedriver")
 register_url = "http://127.0.0.1:5000/register"
 login_url = "http://127.0.0.1:5000/login"
+home_url = "http://127.0.0.1:5000/home"
 
 # registration fields
 first_name = "John"
@@ -40,6 +41,14 @@ class TestRegisterAndLogin(unittest.TestCase):
         print("login status code: ", code.status_code)
         self.assertEqual(code.status_code, 200)
 
+    def test_logout(self): 
+        # automate logout
+        driver.get(home_url)
+        driver.find_element_by_name('logout_button').click()
+        # check status code 200
+        code = requests.get(home_url)
+        print("logout status code: ", code.status_code)
+        self.assertEqual(code.status_code, 200)
 
 if __name__ == '__main__':
     unittest.main()
