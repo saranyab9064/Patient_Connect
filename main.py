@@ -10,6 +10,7 @@ import pickle as p
 import json
 import random
 import requests
+import math
 
 app=Flask(__name__)
 app.secret_key=os.urandom(24)
@@ -92,13 +93,16 @@ def filter_patient_details(id):
     else:
         return -1
 
-@app.route('/home', methods=['GET'])
+@app.route('/home', methods=['GET','POST'])
 def home():
     dynamo_client = boto3.client('dynamodb')
     out = []
     # Get appointment details
     app_details = dynamo_client.scan(TableName='appointment_times')
     res_app = app_details['Items']
+    pageNumber = 1
+    pageLimit = 4
+    # skip = (pageNumber - 1) * pageLimit
     print(len(res_app))
     for i in range(len(res_app)):
         title= res_app[i]['apptTitle']['S']
@@ -121,9 +125,10 @@ def home():
                 "notes":response[4]         
                 })
     result = out
+
     print(result)
-    
-    return render_template('home_test.html',value=result,length=len(result))
+    # print(int(math.ceil(len(result)/pageLimit)))
+    return render_template('home_test.html',value=result,length=len(result),totalPages=int(math.ceil(len(result)/pageLimit)))
     
 
 @app.route('/fullcalendar', methods=['GET', 'POST'])
