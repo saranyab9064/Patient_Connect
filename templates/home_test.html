@@ -1,0 +1,46 @@
+{% extends "base.html" %}
+
+{% block title %}Dashboard{% endblock %}
+
+{% block content %}
+<!-- *** TITLE ***  -->
+<div class="mx-auto my-5" style="width: 500px;">
+  <h1><u>Upcoming Appointments</u></h1>
+</div>
+
+<!-- *** PATIENT CARDS -->
+<div class="row px-4 mx-4 md-n5">
+  <div class="col px-2 md-3">
+    <div class="card mb-3 border-dark" style="max-width: 540px;">
+      <div class="row no-gutters">
+        {% for i in range(length) %}
+        <li>
+        <div class="col-md-4">
+          <img src="/static/patient1.PNG" class="card-img" alt="...">
+        </div>
+
+        <div class="col-md-8">
+          <div class="card-body">
+            <h5 class="card-title">{{(value[i]['fname'])}} </h5>
+            <p class="card-text"> {{(value[i]['gen'])}}  </p>
+            <p class="card-text"> {{(value[i]['e_id'])}}  </p>
+            <p class="card-text"> {{(value[i]['s_day'])}} </p>
+            <p class="card-text"> Symptoms:{{(value[i]['notes'])}} </p>
+            <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
+            <button type="button" class="btn btn-primary btn-sm">More details</button>
+
+          </div>
+        </div>
+        </li>
+        {% endfor %}
+    </div>
+    </div>
+  </div>
+
+
+
+
+  <!-- end of row -->
+</div>
+
+{% endblock %}
