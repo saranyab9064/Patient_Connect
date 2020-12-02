@@ -42,7 +42,8 @@ allFormDetails = [
     "age_range",
     "admission_deposit"
 ]
-modelInput = []  # must append allFormDetails array into another array to feed to model
+# must append allFormDetails array into another array to feed to model
+modelInput = []  
 
 @app.route('/')
 def login():
@@ -51,9 +52,9 @@ def login():
 @app.route('/register', methods=['GET','POST'])
 def register():
     if request.method == 'POST':
-        print("Register Login")
+        print("-------------Register Login-----------------")
         userDetails = request.form
-        #Unique identifier for spot
+        # Unique identifier for spot
         spot_id = uuid.uuid4() 
         user_uuid = spot_id # use to store in appt db
         first_name = userDetails['f_name']
@@ -74,35 +75,55 @@ def register():
         return render_template('login.html',msg=msg)     
     return render_template('register.html',msg="Please Register if you don't have an account otherwise login !")
     
+def filter_patient_details(id):
+    dynamo_client = boto3.client('dynamodb')
+    table = dynamodb.Table('patient_details')
+    # Get patient details
+    pat_details = table.scan(FilterExpression=Key('uuid').eq(id))
+    res_pat = pat_details['Items']
+    if len(res_pat)>0:
+        #print("res_pat",res_pat,len(res_pat),res_pat[0]['first_name'])
+        f_name = res_pat[0]['first_name']
+        l_name= res_pat[0]['last_name']
+        email_id= res_pat[0]['email']
+        gender = res_pat[0]['gender']
+        add_notes = res_pat[0]['additional_info']
+        return(f_name,l_name,email_id,gender,add_notes)
+    else:
+        return -1
 
 @app.route('/home', methods=['GET'])
 def home():
     dynamo_client = boto3.client('dynamodb')
-    temp = dynamo_client.scan(TableName='patient_details')
-    res = temp['Items']
     out = []
-    sym = []
-    notes = []
-    e_address = []
-    #print(res,len(res))
-    #print(res[0]['email']['S'])
-    for i in range(0,3):
-        f_name= res[i]['first_name']['S']
-        l_name= res[i]['last_name']['S']
-        email_add= res[i]['email']['S']
-        gender = res[i]['gender']['S']
-        severity_level= res[i]['illness_severity']['S']
-        add_notes = res[i]['additional_info']['S']
-        #print(f_name)
-        temp[i] = f_name +" "+ l_name+ ", "+ gender 
-        #notes[i]= add_notes
-        #e_address.append(email_add)
-        out.append(temp[i])
-        sym.append(add_notes)
-    print(sym)
-    print(out)
-        
-    return render_template('home.html',value0=out[0],value1=out[1],value2=out[2],symptoms0=sym[0],symptoms1=sym[1],symptoms2=sym[2])
+    # Get appointment details
+    app_details = dynamo_client.scan(TableName='appointment_times')
+    res_app = app_details['Items']
+    print(len(res_app))
+    for i in range(len(res_app)):
+        title= res_app[i]['apptTitle']['S']
+        s_day= res_app[i]['startDay']['S']
+        e_day= res_app[i]['endDay']['S']
+        c_name = res_app[i]['className']['S']
+        p_id= res_app[i]['patientID']['S']
+        response = filter_patient_details(p_id)
+        if response != -1:
+            #print(type(response),response)
+            out.append({
+                "title":title,
+                "s_day":s_day,
+                "e_day":e_day,
+                "c_name":c_name,
+                "fname":response[0],
+                "lname":response[1],
+                "e_id":response[2],
+                "gen":response[3],
+                "notes":response[4]         
+                })
+    result = out
+    print(result)
+    
+    return render_template('home_test.html',value=result,length=len(result))
     
 
 @app.route('/fullcalendar', methods=['GET', 'POST'])
@@ -141,11 +162,12 @@ def fullcalendar():
 def register_patient():
     patientDetails = "none"
     if request.method == "POST": 
-
         # retrieve data from form
         patientDetails = request.form
-        spot_id = uuid.uuid4() #Unique identifier for spot
-        patient_uuid = spot_id # use to store in appt db
+        # Unique identifier for spot
+        spot_id = uuid.uuid4() 
+        # use to store in appt db
+        patient_uuid = spot_id 
         first_name = patientDetails['first_name']
         last_name = patientDetails['last_name']
         email = patientDetails['email']
