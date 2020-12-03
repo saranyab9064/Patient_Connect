@@ -1,65 +1,45 @@
 {% extends "base.html" %} {% block title %}Dashboard{% endblock %} {% block
-content %}
-<!-- *** TITLE ***  -->
-<div class="mx-auto my-5" style="width: 500px">
-  <h1><u>Upcoming Appointments</u></h1>
-</div>
-
-<!-- *** PATIENT CARDS -->
-<div class="row px-4 mx-4 md-n5">
-  <div class="col px-2 md-3">
-    <div class="card mb-3">
-      <div class="row no-gutters" style="align-items: center">
-        {% for i in range(length) %}
-        <!-- <li> -->
-        <!-- <div class="col-md-4">
-          <img src="/static/patient1.PNG" class="card-img" alt="...">
-        </div> -->
-        <div class="col-md-3" style="border: 1px solid lightgrey">
-          <img
-            src="/static/patient1.PNG"
-            class="card-img"
-            alt="img"
-            width="10px"
-            height="160px"
-          />
-          <div class="card-body" style="padding-left: 2rem">
-            <h5 class="card-title" style="text-align: center">
-              {{(value[i]['fname'])}}
-            </h5>
-            <p class="card-text">{{(value[i]['gen'])}}</p>
-            <p class="card-text">{{(value[i]['e_id'])}}</p>
-            <p class="card-text">{{(value[i]['s_day'])}}</p>
-            <p class="card-text">Symptoms:{{(value[i]['notes'])}}</p>
-            <!-- <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
-            <button type="button" class="btn btn-primary btn-sm">More details</button> -->
-          </div>
-        </div>
-        <!-- </li> -->
-        {% endfor %}
-      </div>
-      <nav aria-label="...">
-        <ul class="pagination pagination justify-content-center">
-          <!-- <li class="page-item active" aria-current="page">
-          <span class="page-link">
-            1
-            <span class="sr-only">(current)</span>
-          </span>
-        </li> -->
-          {% for i in range(totalPages) %}
-            <li class="page-item"><a id="pageVal" name="page_number" class="page-link" href="#" onclick="getValue(event)">{{(i+1)}}</a></li>
-          {% endfor %}
-          <!-- <li class="page-item"><a class="page-link" href="#">3</a></li> -->
-        </ul>
-      </nav>
-    </div>
+  content %}
+  <!-- *** TITLE ***  -->
+  <div class="mx-auto my-5" style="width: 500px">
+    <h1><u>Upcoming Appointments</u></h1>
   </div>
-  <!-- end of row -->
-</div>
-<script type="text/javascript">
-function getValue(e){
-  e.preventDefault();
-  alert(e.currentTarget.textContent);
-}
-</script>
-{% endblock %}
+  
+  <!-- *** PATIENT CARDS -->
+  <div class="row px-4 mx-4 md-n5">
+    <div class="col px-2 md-3">
+      <div class="card mb-3">
+        <div class="row no-gutters" style="align-items: center">
+          {% for i in range(length0) %}
+          <!-- <li> -->
+          <!-- <div class="col-md-4">
+            <img src="/static/patient1.PNG" class="card-img" alt="...">
+          </div> -->
+          <div class="col-md-3" style="border: 1px solid lightgrey">
+            <img
+              src="/static/patient1.PNG"
+              class="card-img"
+              alt="img"
+              width="10px"
+              height="160px"
+            />
+            <div class="card-body" style="padding-left: 2rem">
+              <h5 class="card-title" style="text-align: center">
+                {{(value[i]['fname'])}}
+              </h5>
+              <p class="card-text">{{(value[i]['gen'])}}</p>
+              <p class="card-text">{{(value[i]['e_id'])}}</p>
+              <p class="card-text">{{(value[i]['s_day'])}}</p>
+              <p class="card-text">Symptoms:{{(value[i]['notes'])}}</p>
+              <!-- <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
+              <button type="button" class="btn btn-primary btn-sm">More details</button> -->
+            </div>
+          </div>
+          <!-- </li> -->
+          {% endfor %}
+
+    </div>
+    <!-- end of row -->
+  </div>
+ 
+  {% endblock %}
