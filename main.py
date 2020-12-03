@@ -235,7 +235,7 @@ def login_validation():
         #print("items",items)
         if len(items)>0:
             name=items[0]['email']       
-            return render_template('home.html')
+            return render_template('home_test.html')
         else:
             result = {}
             result ="You don't have a account. Please click create a new account"
