@@ -16,21 +16,40 @@
             <img src="/static/patient1.PNG" class="card-img" alt="...">
           </div> -->
           <div class="col-md-3" style="border: 1px solid lightgrey">
-            <img
-              src="/static/patient1.PNG"
+            {% if value[i]['gen'] == "Female" %}
+              <img
+                src="/static/girl2.png"
+                class="card-img"
+                alt="img"
+                width="10px"
+                height="460px"
+              />
+              {% elif value[i]['gen'] == "Male" %}
+                <img
+                src="/static/boy2.png"
+                class="card-img"
+                alt="img"
+                width="10px"
+                height="460px"
+              />
+              {% else %}
+              <img
+              src="/static/trans.png"
               class="card-img"
               alt="img"
               width="10px"
-              height="160px"
+              height="460px"
             />
-            <div class="card-body" style="padding-left: 2rem">
-              <h5 class="card-title" style="text-align: center">
+              {% endif %}
+          
+            <div class="card-body m-4">
+              <h5 class="card-title mx-auto" style="text-align: center">
                 {{(value[i]['fname'])}} {{(value[i]['lname'])}}, {{(value[i]['gen'])}}
               </h5>
-              <p class="card-text">Email-id:{{(value[i]['e_id'])}}</p>
-              <p class="card-text">Start Day: {{(value[i]['s_day'])}}</p>
-              <p class="card-text">End Day:{{(value[i]['e_day'])}}</p>
-              <p class="card-text">Symptoms:{{(value[i]['notes'])}}</p>
+              <p class="card-text"><b>Email: </b> {{(value[i]['e_id'])}}</p>
+              <p class="card-text"><b>Start Day: </b> {{(value[i]['s_day'])}}</p>
+              <p class="card-text"><b>End Day: </b> {{(value[i]['e_day'])}}</p>
+              <p class="card-text"><b>Symptoms: </b> {{(value[i]['notes'])}}</p>
               <!-- <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
               <button type="button" class="btn btn-primary btn-sm">More details</button> -->
             </div>
@@ -41,5 +60,18 @@
     </div>
     <!-- end of row -->
   </div>
+  <nav aria-label="Page navigation example">
+    <ul class="pagination justify-content-center">
+      <li class="page-item disabled">
+        <a class="page-link" href="#" tabindex="-1">Previous</a>
+      </li>
+      <li class="page-item"><a class="page-link" href="#">1</a></li>
+      <li class="page-item"><a class="page-link" href="#">2</a></li>
+      <li class="page-item"><a class="page-link" href="#">3</a></li>
+      <li class="page-item">
+        <a class="page-link" href="#">Next</a>
+      </li>
+    </ul>
+  </nav>
  
   {% endblock %}

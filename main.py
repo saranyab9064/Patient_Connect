@@ -12,6 +12,9 @@ import random
 import requests
 import math
 
+from flask import Blueprint
+from flask_paginate import Pagination, get_page_parameter
+
 app=Flask(__name__)
 app.secret_key=os.urandom(24)
 
@@ -24,6 +27,9 @@ aws_secret_access_key=current_credentials.secret_key)
 
 patient_uuid = "default"
 user_uuid = "default"
+
+CARDS_PER_PAGE = 4
+ROWS_PER_PAGE = 2
 
 # IMPORTANT: these strings will be replaced with the user's input on the form later, i put the column names here to show the order the 
 allFormDetails = [
@@ -49,6 +55,14 @@ modelInput = []
 @app.route('/')
 def login():
     return redirect('/register')
+
+@app.route('/test', methods=['GET','POST'])
+def test():
+    # appointment_times = dynamodb.Table('appointment_times')
+    # apptTimes = appointment_times.scan()['Items']
+    # print(appointment_times.scan()['Items'][0])
+    data = {'username': 'Pang', 'site': 'stackoverflow.com'}
+    return render_template('test.html', data = data)
 
 @app.route('/register', methods=['GET','POST'])
 def register():
@@ -93,6 +107,13 @@ def filter_patient_details(id):
     else:
         return -1
 
+@app.route('/home_test', methods=['GET','POST'])
+def home_test():
+    if request.method == 'POST':
+        print("home_test post method called!")
+        print(requests.form)
+    return render_template('home_test.html')
+
 @app.route('/home', methods=['GET','POST'])
 def home():
     dynamo_client = boto3.client('dynamodb')
@@ -100,6 +121,9 @@ def home():
     # Get appointment details
     app_details = dynamo_client.scan(TableName='appointment_times')
     res_app = app_details['Items']
+    pageNumber = 1
+    pageLimit = 4
+    # skip = (pageNumber - 1) * pageLimit
     print(len(res_app))
     for i in range(len(res_app)):
         title= res_app[i]['apptTitle']['S']
@@ -123,12 +147,31 @@ def home():
                 })
     result = out
 
-    print(result)
-    return render_template('home_test.html',value=result,length0=len(result))
-    
+    print("result len: ", len(result))
+    # apptTimes = result.query.paginate(page=len(res_app), per_page=3)
+    # print(int(math.ceil(len(result)/pageLimit)))
+    return render_template('home_test.html',value=result,length0=len(result),totalPages=int(math.ceil(len(result)/pageLimit)))
 
 @app.route('/fullcalendar', methods=['GET', 'POST'])
 def fullcalendar():
+    appointment_times = dynamodb.Table('appointment_times')
+    data = json.dumps(appointment_times.scan()['Items'])
+    # data = json.dumps({'username': 'Pang', 'site': 'stackoverflow.com'})
+    # print(data)
+    # data = "Linda Nguyen"
+
+    # if request.method == 'GET': 
+    #     appointment_times = dynamodb.Table('appointment_times')
+    #     print("----appointment_times----")
+    #     print(appointment_times.scan()['Items'][0])
+    #     data = appointment_times.scan()['Items'][0]
+    #     x = requests.post("http://127.0.0.1:5000/fullcalendar", data = data)
+    #     print("status code: ", x.status_code)
+
+    #     if x.status_code == 200: 
+    #         print("Successfully scanned and posted appointment times!")
+    #     else: 
+    #         print("Failed to scan and post appointment times!")
     if request.method == 'POST':
         apptDetails = request.form.to_dict()
         print("json data ", apptDetails)
@@ -138,12 +181,10 @@ def fullcalendar():
         endDay = apptDetails['end']
         className = apptDetails['className']
         spot_id = uuid.uuid4() # Unique identifier for spot
-        
         # scan patient details
         patient_details = dynamodb.Table('patient_details')
         row = patient_details.scan(FilterExpression=Key('first_name').eq(patientName))
         patient_uuid = row['Items'][0]['uuid']
-        
         # insert appointment data into table
         appointment_table = dynamodb.Table('appointment_times')
         print("Details: ", spot_id, apptTitle, startDay, endDay, className, patient_uuid)
@@ -157,11 +198,14 @@ def fullcalendar():
             }
         )
 
-    return render_template('fullcalendar.html')
+    return render_template('fullcalendar.html', data = data)
 
 @app.route('/register_patient', methods=['GET','POST'])
 def register_patient():
     patientDetails = "none"
+    appointment_times = dynamodb.Table('appointment_times')
+    data = appointment_times.scan()['Items'][0]
+    print(appointment_times.scan()['Items'])
     if request.method == "POST": 
         # retrieve data from form
         patientDetails = request.form
@@ -209,7 +253,7 @@ def register_patient():
             }
         )
         return redirect('/estimate_stay')
-    return render_template('register_patient.html')
+    return render_template('register_patient.html', data = data)
 
 @app.route('/book_appointments')
 def book_appointments():
@@ -231,7 +275,7 @@ def login_validation():
         #print("items",items)
         if len(items)>0:
             name=items[0]['email']       
-            return redirect('/home')
+            return render_template('home.html')
         else:
             result = {}
             result ="You don't have a account. Please click create a new account"
