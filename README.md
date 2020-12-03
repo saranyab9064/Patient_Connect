@@ -8,16 +8,18 @@ PatientConnect is a healthcare management app that can be used to book hospital 
 ```
 pip install -r requirements.txt
 ```
-## AWS Dynamodb
-```
-Generate secret and access aws keys
-Configure the keys using cli command "aws configure" on local machine
-Created three tables
---------------------
-1. user_auth [ Stores user information(doctor's info) and validates it ]
-2. patient_details [ Stores patient information ]
-3. hosp_details [ Stores hospital details ] 
-```
+
+## Demo 
+### Login
+![](login.gif)
+---
+### Fill Forms
+This data will be fed into the machine learning pickle file.\n
+![](estimate_los.gif)
+---
+### Book Appointment
+![](book_appt.gif)
+
 ## Run Application
 In your terminal, run the following:
 ```
@@ -29,6 +31,17 @@ set FLASK_APP=main.py
 
 # run flask server
 flask run
+```
+
+## AWS Dynamodb
+```
+Generate secret and access aws keys
+Configure the keys using cli command "aws configure" on local machine
+Created three tables
+--------------------
+1. user_auth [ Stores user information(doctor's info) and validates it ]
+2. patient_details [ Stores patient information ]
+3. hosp_details [ Stores hospital details ] 
 ```
 
 ## Kaggle Dataset
