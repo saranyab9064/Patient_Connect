@@ -124,7 +124,7 @@ def home():
     result = out
 
     print(result)
-    return render_template('home_test.html',value=result,length=len(result))
+    return render_template('home_test.html',value=result,length0=len(result))
     
 
 @app.route('/fullcalendar', methods=['GET', 'POST'])
@@ -231,7 +231,7 @@ def login_validation():
         #print("items",items)
         if len(items)>0:
             name=items[0]['email']       
-            return render_template('home_test.html')
+            return redirect('/home')
         else:
             result = {}
             result ="You don't have a account. Please click create a new account"
