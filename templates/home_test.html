@@ -25,11 +25,11 @@
             />
             <div class="card-body" style="padding-left: 2rem">
               <h5 class="card-title" style="text-align: center">
-                {{(value[i]['fname'])}}
+                {{(value[i]['fname'])}} {{(value[i]['lname'])}}, {{(value[i]['gen'])}}
               </h5>
-              <p class="card-text">{{(value[i]['gen'])}}</p>
-              <p class="card-text">{{(value[i]['e_id'])}}</p>
-              <p class="card-text">{{(value[i]['s_day'])}}</p>
+              <p class="card-text">Email-id:{{(value[i]['e_id'])}}</p>
+              <p class="card-text">Start Day: {{(value[i]['s_day'])}}</p>
+              <p class="card-text">End Day:{{(value[i]['e_day'])}}</p>
               <p class="card-text">Symptoms:{{(value[i]['notes'])}}</p>
               <!-- <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
               <button type="button" class="btn btn-primary btn-sm">More details</button> -->
