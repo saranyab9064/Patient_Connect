@@ -100,9 +100,6 @@ def home():
     # Get appointment details
     app_details = dynamo_client.scan(TableName='appointment_times')
     res_app = app_details['Items']
-    pageNumber = 1
-    pageLimit = 4
-    # skip = (pageNumber - 1) * pageLimit
     print(len(res_app))
     for i in range(len(res_app)):
         title= res_app[i]['apptTitle']['S']
@@ -127,8 +124,7 @@ def home():
     result = out
 
     print(result)
-    # print(int(math.ceil(len(result)/pageLimit)))
-    return render_template('home_test.html',value=result,length=len(result),totalPages=int(math.ceil(len(result)/pageLimit)))
+    return render_template('home_test.html',value=result,length=len(result))
     
 
 @app.route('/fullcalendar', methods=['GET', 'POST'])
