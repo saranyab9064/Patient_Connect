@@ -279,7 +279,7 @@ def login_validation():
         else:
             result = {}
             result ="You don't have a account. Please click create a new account"
-            return render_template('login.html',msg=result)
+            return render_template('home_test.html',msg=result)
     else:
         return render_template('login.html',msg="")
 
