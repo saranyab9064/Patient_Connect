@@ -56,6 +56,10 @@ modelInput = []
 def login():
     return redirect('/register')
 
+@app.route('/about', methods=['GET','POST'])
+def about():
+    return render_template('about.html')
+    
 @app.route('/test', methods=['GET','POST'])
 def test():
     # appointment_times = dynamodb.Table('appointment_times')
@@ -275,11 +279,11 @@ def login_validation():
         #print("items",items)
         if len(items)>0:
             name=items[0]['email']       
-            return render_template('home.html')
+            return redirect('/home')
         else:
             result = {}
             result ="You don't have a account. Please click create a new account"
-            return render_template('home_test.html',msg=result)
+            return render_template('login.html',msg=result)
     else:
         return render_template('login.html',msg="")
 
